@@ -1,0 +1,17 @@
+promedios : Seq Int -> Seq Float
+promedios s =   let (s', r) = scan (+) 0 s in
+                    s'' = append s' (singleton r) in
+                tabulate (\j -> (nth s'') / j) ((length s) + 1)
+
+promedios : Seq Int -> Seq Float
+promedios s = let added = tabulate (\i -> reduce (+) 0 (take s i)) (length s) in
+    
+
+mayores : Seq Int -> Int
+mayores s = let (m, f) = scan (max) -inf s
+                maxElems = append m (singleton f) in
+            reduce (+) 0 (tabulate (\i -> if (nth s i) > (nth maxElems i) then 1 else 0) ((length s) + 1))
+
+mayores : Seq Int -> Int
+mayores s = let maxElems = tabulate (\i -> reduce (max) -inf (take s i)) ((length s) + 1) in
+    reduce (+) 0 (tabulate (\i -> if (nth s i) > (nth maxElems i) then 1 else 0) ((length s) + 1))

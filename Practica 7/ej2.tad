@@ -1,0 +1,11 @@
+matrixMult : (Int, Int, Int, Int) -> (Int, Int, Int, Int) -> (Int, Int, Int, Int)
+matrixMult (a, b, c, d) (e, f, g, h) = (a*e + b*g, a*f + b*h, c*e + d*g, c*f + d*h)
+
+thirdElem : (Int, Int, Int, Int) -> Int
+thirdElem (_, _, c, _) = c
+
+fibSeq : Nat -> Seq Int
+fibSeq n =  let (s, e) = scan matrixMult (1, 1, 1, 0) (tabulate (\i -> (1, 1, 1, 0)) n)
+                fullSeq = append s (singleton e) in
+            map thirdElem fullSeq
+
